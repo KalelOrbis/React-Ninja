@@ -1,8 +1,9 @@
 type BlogsListProps = {
   blogs: { title: string; body: string; author: string; id: number }[];
   title: string;
+  handleDelete(id: number): void;
 };
-export function BlogsList({ blogs, title }: BlogsListProps) {
+export function BlogsList({ blogs, title, handleDelete }: BlogsListProps) {
   return (
     <div className="blogsList">
       <h2>{title}</h2>
@@ -10,6 +11,7 @@ export function BlogsList({ blogs, title }: BlogsListProps) {
         <div className="blog-preview" key={blog.id}>
           <h2>{blog.title}</h2>
           <p>Written by {blog.author}</p>
+          <button onClick={() => handleDelete(blog.id)}>Delete blog</button>
         </div>
       ))}
     </div>
