@@ -1,3 +1,4 @@
+import { Blog } from "../Types";
 import useFetch from "../useFetch";
 import { BlogsList } from "./BlogsList";
 
@@ -6,7 +7,7 @@ export function Home() {
     error,
     isPending,
     data: blogs,
-  } = useFetch("http://localhost:8000/blogs");
+  } = useFetch<Blog[]>("http://localhost:8000/blogs");
 
   return (
     <div className="home">

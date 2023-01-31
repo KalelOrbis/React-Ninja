@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
-export default function useFetch(url: string) {
-  const [data, setData] = useState<any[] | null>(null);
+export default function useFetch<T>(url: string) {
+  const [data, setData] = useState<T | null>(null);
   const [isPending, setIsPending] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
