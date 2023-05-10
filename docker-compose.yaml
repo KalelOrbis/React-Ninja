@@ -41,7 +41,7 @@ services:
       - /app/node_modules
     environment:
       - CHOKIDAR_USEPOLLING=true
-      - DB_HOST: blog-db
+      - DB_HOST=blog-db
     stdin_open: true
     tty: true
 
