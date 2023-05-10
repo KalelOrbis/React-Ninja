@@ -13,6 +13,7 @@ services:
       - "3306:3306"
     volumes:
       - "./db/db.sql:/docker-entrypoint-initdb.d/1.sql"
+      - persistent-db:/var/lib/mysql
   blog-server:
     build: ./server
     container_name: blog-server
@@ -43,3 +44,6 @@ services:
       DB_HOST: blog-db
     stdin_open: true
     tty: true
+    
+volumes:
+  persistent-db:
