@@ -17,7 +17,7 @@ export function Create() {
 
     setIsPending(true);
 
-    fetch("http://blog-server:3000/create", {
+    fetch("http://localhost:3000/create", {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(blog),
