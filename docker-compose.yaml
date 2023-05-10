@@ -24,10 +24,10 @@ services:
     volumes:
       - ./server:/app
     environment:
-      - DB_HOST: blog-db
-      - DB_USER: root
-      - DB_PASSWORD: 1234
-      - DB_NAME: BlogDB
+      - DB_HOST=blog-db
+      - DB_USER=root
+      - DB_PASSWORD=1234
+      - DB_NAME=BlogDB
       - CHOKIDAR_USEPOLLING=true
   blog-client:
     build: ./client
