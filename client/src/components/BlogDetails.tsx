@@ -9,12 +9,12 @@ export function BlogDetails() {
     data: blog,
     isPending,
     error,
-  } = useFetch<Blog[]>(`http://localhost:3000/blogs/${blogID}`, "GET");
+  } = useFetch<Blog[]>(`http://blog-server:3000/blogs/${blogID}`, "GET");
   const location = useLocation();
   const navigate = useNavigate();
 
   const handleDelete = () => {
-    fetch(`http://localhost:3000/blogs/${blogID}`, { method: "DELETE" }).then(
+    fetch(`http://blog-server:3000/blogs/${blogID}`, { method: "DELETE" }).then(
       () => {
         navigate("/");
       }

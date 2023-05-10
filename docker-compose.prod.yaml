@@ -1,0 +1,52 @@
+version: "3.4"
+services:
+  blog-db:
+    container_name: blog-db
+    image: mariadb:latest
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MARIADB_ROOT_USER: root
+      MARIADB_ROOT_PASSWORD: 1234
+      MARIADB_DATABASE: BlogDB
+    volumes:
+      - persistent-db:/var/lib/mysql
+    networks:
+      - blog-network
+  blog-server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile.prod
+    container_name: blog-server
+    environment:
+      DB_HOST: blog-db
+      DB_USER: root
+      DB_PASSWORD: 1234
+      DB_NAME: BlogDB
+    ports:
+      - "3000:3000"
+    depends_on:
+      - blog-db
+    volumes:
+      - static-content:/app/static
+    networks:
+      - blog-network
+  blog-client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile.prod
+    container_name: blog-client
+    environment:
+      DB_HOST: blog-db
+    ports:
+      - "3001:3001"
+    depends_on:
+      - blog-server
+    networks:
+      - blog-network
+
+volumes:
+  persistent-db:
+  static-content:
+
+networks:
+  blog-network:
