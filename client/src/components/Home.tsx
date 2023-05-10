@@ -7,8 +7,8 @@ export function Home() {
     error,
     isPending,
     data: blogs,
-  } = useFetch<Blog[]>("http://localhost:8000/blogs");
-
+  } = useFetch<Blog[]>("http://localhost:3000/blogs", "GET");
+  console.log(blogs);
   return (
     <div className="home">
       {error && <div>{error.message}</div>}

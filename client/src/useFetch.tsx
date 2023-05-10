@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export default function useFetch<T>(url: string) {
+export default function useFetch<T>(url: string, method: string) {
   const [data, setData] = useState<T | null>(null);
   const [isPending, setIsPending] = useState(true);
   const [error, setError] = useState<Error | null>(null);
@@ -8,7 +8,7 @@ export default function useFetch<T>(url: string) {
   useEffect(() => {
     const abortContrl = new AbortController();
     setTimeout(() => {
-      fetch(url, { signal: abortContrl.signal })
+      fetch(url, { method, signal: abortContrl.signal })
         .then((res) => {
           if (!res.ok) {
             throw new Error(res.statusText);
@@ -30,7 +30,7 @@ export default function useFetch<T>(url: string) {
         });
     }, 1000);
     return () => abortContrl.abort();
-  }, [url]);
+  }, [url, method]);
 
   return {
     data,

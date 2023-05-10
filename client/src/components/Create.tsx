@@ -13,15 +13,17 @@ export function Create() {
     e.preventDefault();
     const blog = { title, body, author };
 
+    console.log(JSON.stringify(blog));
+
     setIsPending(true);
 
-    fetch("http://localhost:8000/blogs", {
+    fetch("http://localhost:3000/create", {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(blog),
     }).then(() => {
       setIsPending(false);
-      navigate(location.state ? location.state.referrer : "/");
+      navigate("/");
     });
   };
   return (
@@ -42,15 +44,13 @@ export function Create() {
           onChange={(e) => setBody(e.target.value)}
         ></textarea>
         <label htmlFor="">Blog Author:</label>
-        <select
+        <input
+          type="text"
           name=""
           id=""
           value={author}
           onChange={(e) => setAuthor(e.target.value)}
-        >
-          <option value="mario">Mario</option>
-          <option value="yoshi">Yoshi</option>
-        </select>
+        />
         {!isPending && <button type="submit">Add Blog</button>}
         {isPending && (
           <button type="submit" disabled>

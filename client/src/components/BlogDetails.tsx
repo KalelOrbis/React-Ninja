@@ -9,26 +9,28 @@ export function BlogDetails() {
     data: blog,
     isPending,
     error,
-  } = useFetch<Blog>(`http://localhost:8000/blogs/${blogID}`);
+  } = useFetch<Blog[]>(`http://localhost:3000/blogs/${blogID}`, "GET");
   const location = useLocation();
   const navigate = useNavigate();
 
   const handleDelete = () => {
-    fetch(`http://localhost:8000/blogs/${blog?.id}`, { method: "DELETE" }).then(
+    fetch(`http://localhost:3000/blogs/${blogID}`, { method: "DELETE" }).then(
       () => {
-        navigate(location.state ? location.state.referrer : "/");
+        navigate("/");
       }
     );
   };
+
+  console.log(JSON.stringify(blog), JSON.parse(JSON.stringify(blog)));
   return (
     <div className="blog-details">
       {isPending && <div>Loading...</div>}
       {error && <div>{error.message}</div>}
       {blog && (
         <article>
-          <h2>{blog.title}</h2>
-          <p>by {blog.author}</p>
-          <div>{blog.body}</div>
+          <h2>{blog[0].title}</h2>
+          <p>by {blog[0].author}</p>
+          <div>{blog[0].body}</div>
           <button onClick={handleDelete}>Delete</button>
         </article>
       )}

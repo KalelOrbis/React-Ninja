@@ -1,0 +1,45 @@
+version: "3.4"
+name: blog-app
+services:
+  blog-db:
+    container_name: blog-db
+    image: mariadb:latest
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MARIADB_ROOT_USER: root
+      MARIADB_ROOT_PASSWORD: 1234
+      MARIADB_DATABASE: BlogDB
+    ports:
+      - "3306:3306"
+    volumes:
+      - "./db/db.sql:/docker-entrypoint-initdb.d/1.sql"
+  blog-server:
+    build: ./server
+    container_name: blog-server
+    ports:
+      - "3000:3000"
+    depends_on:
+      - blog-db
+    volumes:
+      - ./server:/app
+    environment:
+      DB_HOST: blog-db
+      DB_USER: root
+      DB_PASSWORD: 1234
+      DB_NAME: BlogDB
+      CHOKIDAR_USEPOLLING: true
+  blog-client:
+    build: ./client
+    container_name: blog-client
+    ports:
+      - "3001:3001"
+    depends_on:
+      - blog-server
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+    environment:
+      CHOKIDAR_USEPOLLING: true
+      DB_HOST: blog-db
+    stdin_open: true
+    tty: true
