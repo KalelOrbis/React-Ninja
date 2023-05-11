@@ -104,14 +104,14 @@ spec:
           tty: true
           volumeMounts:
             - mountPath: /app
-              name: blog-client-claim
+              name: blog-client-claim0
             - mountPath: /app/node_modules
               name: blog-client-claim1
       restartPolicy: Always
       volumes:
-        - name: blog-client-claim
+        - name: blog-client-claim0
           persistentVolumeClaim:
-            claimName: blog-client-claim
+            claimName: blog-client-claim0
         - name: blog-client-claim1
           persistentVolumeClaim:
             claimName: blog-client-claim1
@@ -123,8 +123,8 @@ kind: PersistentVolumeClaim
 metadata:
   creationTimestamp: null
   labels:
-    io.kompose.service: blog-client-claim
-  name: blog-client-claim
+    io.kompose.service: blog-client-claim0
+  name: blog-client-claim0
 spec:
   accessModes:
     - ReadWriteOnce
