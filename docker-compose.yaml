@@ -1,4 +1,5 @@
-version: "3.3"
+version: "3.4"
+name: blog-app
 services:
   blog-db:
     container_name: blog-db
@@ -23,11 +24,11 @@ services:
     volumes:
       - ./server:/app
     environment:
-      - DB_HOST=blog-db
-      - DB_USER=root
-      - DB_PASSWORD=1234
-      - DB_NAME=BlogDB
-      - CHOKIDAR_USEPOLLING=true
+      DB_HOST: blog-db
+      DB_USER: root
+      DB_PASSWORD: 1234
+      DB_NAME: BlogDB
+      CHOKIDAR_USEPOLLING: true
   blog-client:
     build: ./client
     container_name: blog-client
@@ -39,10 +40,10 @@ services:
       - ./client:/app
       - /app/node_modules
     environment:
-      - CHOKIDAR_USEPOLLING=true
-      - DB_HOST=blog-db
+      CHOKIDAR_USEPOLLING: true
+      DB_HOST: blog-db
     stdin_open: true
     tty: true
-
+    
 volumes:
   persistent-db:
