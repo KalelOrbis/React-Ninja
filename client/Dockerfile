@@ -1,11 +1,11 @@
 #Base image
-FROM node:18.16.0
+FROM node:lts
 
 # Set the working directory
-WORKDIR /app
+WORKDIR /client
 
 # Copy the package.json
-COPY package*.json ./
+COPY package.json .
 
 # install project dependencies
 RUN yarn install
@@ -17,4 +17,4 @@ COPY . .
 EXPOSE 3000
 
 # Executables
-CMD [ "yarn", "dev"]
+CMD [ "yarn", "dev" ]
